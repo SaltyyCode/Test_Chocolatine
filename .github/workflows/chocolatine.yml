@@ -15,7 +15,7 @@ env:
 jobs:
   is_repo_a_mirror:
     runs-on: ubuntu-latest
-      if : github.repository != 'EpitechPromo2028/B-DOP-200-LIL-2-1-chocolatine-clement.bouret.git'
+    if : github.repository != 'EpitechPromo2028/B-DOP-200-LIL-2-1-chocolatine-clement.bouret.git'
     steps:
       - name: Check if repo is a mirror
         run: |
