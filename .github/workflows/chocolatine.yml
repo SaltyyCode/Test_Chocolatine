@@ -16,7 +16,7 @@ jobs:
   is_repo_a_mirror:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if repo is a mirror
+      - name: Is repo a mirror 
         run: |
           if [[ "${GITHUB_REPOSITORY}" == "${MIRROR_URL}" ]]; then
             echo "Error: This repository is a mirror"
@@ -60,7 +60,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Compile the Program
+      - name: Program Compilation
         run: make
 
   test:
@@ -72,7 +72,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Run Tests
+      - name: Run tests
         run: make tests_run
         timeout-minutes: 2
 
