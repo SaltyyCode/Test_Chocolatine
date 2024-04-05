@@ -14,16 +14,20 @@ env:
 
 jobs:
   is_repo_a_mirror:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check if repo is a mirror
-        run: |
-          if: ${{ !contains(env.MIRROR_URL, github.repository) }}; then
-            echo "Error: This repository is a mirror"
-            exit 1
-          else
-            echo "This repository is not a mirror"
-          fi
+  runs-on: ubuntu-latest
+  outputs:
+    is_mirror: ${{ steps.check_mirror.outputs.is_mirror }}
+  steps:
+    
+name: Check if repo is a mirror
+    id: check_mirror
+    run: |
+      echo "Comparing ${{ github.repository }} with expected non-mirror repository information"
+      if [[ ! "${{ env.MIRROR_URL }}" == "${{ github.repository }}" ]]; then
+        echo "::set-output name=is_mirror::false"
+      else
+        echo "::set-output name=is_mirror::true"
+      fi
 
   check_coding_style:
     runs-on: ubuntu-latest
