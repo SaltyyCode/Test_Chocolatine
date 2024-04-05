@@ -12,16 +12,20 @@ env:
 jobs:
   is_repo_a_mirror:
     runs-on: ubuntu-latest
-    if : github.repository != 'EpitechPromo2028/B-DOP-200-LIL-2-1-chocolatine-clement.bouret.git'
     steps:
       - name: Check if repo is a mirror
         run: |
-          if [[ "${GITHUB_REPOSITORY}" == "${MIRROR_URL}" ]]; then
+          MIRROR_REPO_NAME=$(echo "${MIRROR_URL}" | sed 's/.*\/\([^\/]*\)\.git/\1/')
+          echo "Mirror repository name: $MIRROR_REPO_NAME"
+          if [[ "${GITHUB_REPOSITORY}" == "EpitechPromo2028/$MIRROR_REPO_NAME" ]]; then
             echo "Error: This repository is a mirror"
             exit 1
           else
             echo "This repository is not a mirror"
           fi
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          MIRROR_URL: ${{ env.MIRROR_URL }}
   check_coding_style:
     runs-on: ubuntu-latest
     needs: is_repo_a_mirror
