@@ -1,3 +1,11 @@
+##
+## EPITECH PROJECT, 2024
+## makefile
+## File description:
+## makefile
+##
+
+
 NAME	= test
 
 CFLAGS	=	-W -Wall -Wextra
